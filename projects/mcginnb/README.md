@@ -1,1 +1,1 @@
-Bridget McGinn mcginnb
+This is my assignment-1 submission!
