@@ -1,4 +1,4 @@
-@@ -0,0 +1,1333 @@
+
 #include "dominion.h"
 #include "dominion_helpers.h"
 #include "rngs.h"
@@ -6,11 +6,11 @@
 #include <math.h>
 #include <stdlib.h>
 
-void smithy(int *currentPlayer, struct gameState *state, int *handPos);
-void adventurer(int *drawntreasure, struct gameState *state, int *currentPlayer, int *cardDrawn, *int z);
-void village(int *currentPlayer, struct gameState *state, int *handPos);
-void baron(int *currentPlayer, struct gameState *state, int *handPos, int *choice1);
-void minion(int *currentPlayer, struct gameState *state, int *handPos, int *choice1, int* choice2);
+void smithyfunct(int currentPlayer, struct gameState *state, int handPos);
+void adventurerfunct(int drawntreasure, struct gameState *state, int currentPlayer, int cardDrawn, int z);
+void villagefunct(int currentPlayer, struct gameState *state, int handPos);
+void baronfunct(int currentPlayer, struct gameState *state, int handPos, int choice1);
+void minionfunct(int currentPlayer, struct gameState *state, int handPos, int choice1, int choice2);
 
 int compare(const void* a, const void* b) {
   if (*(int*)a > *(int*)b)
@@ -673,7 +673,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   switch( card ) 
     {
     case adventurer:
-      adventurer(&drawntreasure, &state, &currentPlayer, &cardDrawn, &z);
+      adventurerfunct(drawntreasure, state, currentPlayer, cardDrawn, z);
 			
     case council_room:
       //+4 Cards
@@ -817,14 +817,14 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       return 0;
 		
     case smithy:
-      smithy(&currentPlayer, &state, &handPos);
+      smithyfunct(currentPlayer, state, handPos);
      
 		
     case village:
-      village(&currentPlayer, &state, &handPos);
+      villagefunct(currentPlayer, state, handPos);
 		
     case baron:
-      baron(&currentPlayer, &state, &handPos, &choice1);
+      baronfunct(currentPlayer, state, handPos, choice1);
 		
     case great_hall:
       //+1 Card
@@ -838,7 +838,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       return 0;
 		
     case minion:
-      minion(&currentPlayer, &state, &handPos, &choice1, &choice2)
+      minionfunct(currentPlayer, state, handPos, choice1, choice2);
 		
     case steward:
       if (choice1 == 1)
@@ -1205,18 +1205,19 @@ int updateCoins(int player, struct gameState *state, int bonus)
   return 0;
 }
 
-void smithy(int *currentPlayer, struct gameState *state, int *handPos)
+void smithyfunct(int currentPlayer, struct gameState *state, int handPos)
 {
-  for (i = 0; i < 3; i++)
+  for (int i = 0; i < 3; i++)
   {
     drawCard(currentPlayer, state);
   }
   //discard card from hand
     discardCard(handPos, currentPlayer, state, 0);
-    return 0;
+    return;
 }
 
-void adventurer(int *drawntreasure, struct gameState *state, int *currentPlayer, int *cardDrawn, *int z){
+void adventurerfunct(int drawntreasure, struct gameState *state, int currentPlayer, int cardDrawn, int z){
+  int temphand[MAX_HAND];
   while(drawntreasure<2){
     if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
       shuffle(currentPlayer, state);
@@ -1235,10 +1236,10 @@ void adventurer(int *drawntreasure, struct gameState *state, int *currentPlayer,
     state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1]; // discard all cards in play that have been drawn
     z=z-1;
       }
-    return 0;
+    return;
 }
 
-void village(int *currentPlayer, struct gameState *state, int *handPos){
+void villagefunct(int currentPlayer, struct gameState *state, int handPos){
   //+1 Card
     drawCard(currentPlayer, state);
       
@@ -1247,10 +1248,10 @@ void village(int *currentPlayer, struct gameState *state, int *handPos){
       
     //discard played card from hand
     discardCard(handPos, currentPlayer, state, 0);
-    return 0;
+    return;
 }
 
-void baron(int *currentPlayer, struct gameState *state, int *handPos, int *choice1){
+void baronfunct(int currentPlayer, struct gameState *state, int handPos, int choice1){
   state->numBuys++;//Increase buys by 1!
     if (choice1 > 0){//Boolean true or going to discard an estate
     int p = 0;//Iterator for hand!
@@ -1297,10 +1298,10 @@ void baron(int *currentPlayer, struct gameState *state, int *handPos, int *choic
     } 
     }
       
-    return 0;
+    return;
 }
 
-void minion(int *currentPlayer, struct gameState *state, int *handPos, int *choice1, int* choice2){
+void minionfunct(int currentPlayer, struct gameState *state, int handPos, int choice1, int choice2){
   //+1 action
     state->numActions++;
   
@@ -1326,7 +1327,7 @@ void minion(int *currentPlayer, struct gameState *state, int *handPos, int *choi
       }
         
       //other players discard hand and redraw if hand size > 4
-      for (i = 0; i < state->numPlayers; i++)
+      for (int i = 0; i < state->numPlayers; i++)
       {
         if (i != currentPlayer)
       {
@@ -1339,7 +1340,7 @@ void minion(int *currentPlayer, struct gameState *state, int *handPos, int *choi
           }
               
             //draw 4
-              for (j = 0; j < 4; j++)
+              for (int j = 0; j < 4; j++)
           {
               drawCard(i, state);
           }
@@ -1348,7 +1349,7 @@ void minion(int *currentPlayer, struct gameState *state, int *handPos, int *choi
     }
         
   }
-    return 0;
+    return;
     
 }
 
