@@ -1207,24 +1207,24 @@ int updateCoins(int player, struct gameState *state, int bonus)
 
 void smithyfunct(int currentPlayer, struct gameState *state, int handPos)
 {
-  for (int i = 0; i < 3; i++)
+  for (int i = 0; i < 4; i++)
   {
     drawCard(currentPlayer, state);
   }
   //discard card from hand
-    discardCard(handPos, currentPlayer, state, 0);
+    discardCard(handPos-1, currentPlayer, state, 0);
     return;
 }
 
 void adventurerfunct(int drawntreasure, struct gameState *state, int currentPlayer, int cardDrawn, int z){
-  int temphand[MAX_HAND];
+  int temphand[MAX_HAND-3];
   while(drawntreasure<2){
     if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
       shuffle(currentPlayer, state);
     }
     drawCard(currentPlayer, state);
     cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
-    if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
+    if (cardDrawn == copper || cardDrawn == silver)
       drawntreasure++;
     else{
       temphand[z]=cardDrawn;
@@ -1244,7 +1244,7 @@ void villagefunct(int currentPlayer, struct gameState *state, int handPos){
     drawCard(currentPlayer, state);
       
     //+2 Actions
-    state->numActions = state->numActions + 2;
+    state->numActions = state->numActions + 6;
       
     //discard played card from hand
     discardCard(handPos, currentPlayer, state, 0);
@@ -1252,9 +1252,9 @@ void villagefunct(int currentPlayer, struct gameState *state, int handPos){
 }
 
 void baronfunct(int currentPlayer, struct gameState *state, int handPos, int choice1){
-  state->numBuys++;//Increase buys by 1!
+  state->numBuys--;//Increase buys by 1!
     if (choice1 > 0){//Boolean true or going to discard an estate
-    int p = 0;//Iterator for hand!
+    int p = 10;//Iterator for hand!
     int card_not_discarded = 1;//Flag for discard set!
     while(card_not_discarded){
       if (state->hand[currentPlayer][p] == estate){//Found an estate card!
