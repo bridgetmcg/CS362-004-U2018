@@ -1,0 +1,281 @@
+        -:    0:Source:unittest1.c
+        -:    0:Graph:unittest1.gcno
+        -:    0:Data:unittest1.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:// Code framework comes form cardtest4.c and playdom.c in order to set the game up as both 
+        -:    2:// a basic initialized game, and a game which has had several turns. 
+        -:    3:// Purpose: This tests the fullDeckCount() function
+        -:    4:// Name: Bridget McGinn
+        -:    5:// CS362
+        -:    6:
+        -:    7:#include "dominion.h"
+        -:    8:#include "dominion_helpers.h"
+        -:    9:#include <string.h>
+        -:   10:#include <stdio.h>
+        -:   11:#include <assert.h>
+        -:   12:#include "rngs.h"
+        -:   13:#include <stdlib.h>
+        -:   14:
+function main called 1 returned 100% blocks executed 65%
+        -:   15:int main() {
+        1:   16:	int myCards =0;
+        -:   17:    int i, j, m;
+        1:   18:    int seed = 1000;
+        1:   19:    int numPlayers = 2;
+        1:   20:    int thisPlayer = 0;
+        -:   21:	struct gameState G, testG;
+        1:   22:	int k[10] = {adventurer, embargo, village, minion, mine, cutpurse,
+        -:   23:			sea_hag, tribute, smithy, council_room};
+        -:   24:
+        1:   25:	initializeGame(numPlayers, k, seed, &G);
+        -:   26:
+        1:   27:	printf("----------------- Testing fullDeckCount(): ----------------\n");
+        -:   28:
+        1:   29:	printf("\nCheck fullDeckCount() at beginning of game\n");
+        -:   30:
+        1:   31:	memcpy(&testG, &G, sizeof(struct gameState));
+        1:   32:	j = fullDeckCount(thisPlayer, 0, &testG);
+       12:   33:	for (m=0; m<G.deckCount[thisPlayer]; m++)
+branch  0 taken 83%
+branch  1 taken 17%
+        -:   34:	{
+        5:   35:		myCards++;
+        5:   36:	}
+        -:   37:
+       12:   38:	for (m=0; m<G.handCount[thisPlayer]; m++)
+branch  0 taken 83%
+branch  1 taken 17%
+        -:   39:	{
+        5:   40:		myCards++;
+        5:   41:	}
+        -:   42:
+        2:   43:	for (m=0; m<G.discardCount[thisPlayer]; m++)
+branch  0 taken 0%
+branch  1 taken 100%
+        -:   44:	{
+    #####:   45:		myCards++;
+    #####:   46:	}
+        -:   47:
+        1:   48:	if (j == myCards)
+branch  0 taken 0%
+branch  1 taken 100%
+        -:   49:	{
+    #####:   50:		printf("Card values before and after are the same PASS\n");
+    #####:   51:	}
+        -:   52:	else 
+        -:   53:	{
+        1:   54:		printf("Card values before and after are not the same FAIL\n");
+        -:   55:	}
+        -:   56:
+        1:   57:	printf("\nCheck fullDeckCount() if a 4 (copper) is passed in\n");
+        1:   58:	memcpy(&testG, &G, sizeof(struct gameState));
+        1:   59:	j = fullDeckCount(thisPlayer, 4, &testG);
+        1:   60:	if (j == 7)
+branch  0 taken 100%
+branch  1 taken 0%
+        -:   61:	{
+        -:   62:
+        1:   63:		printf("fullDeckCount can count individual cards PASS\n");
+        1:   64:	}
+        -:   65:	else 
+        -:   66:	{
+    #####:   67:		printf("fullDeckCount cannot count individual cards FAIL\n");
+        -:   68:	}
+        -:   69:
+        1:   70:	printf("\nCheck fullDeckCount() after game runs several times\n");
+        -:   71:
+        1:   72:	int money = 0;
+        1:   73:  	int smithyPos = -1;
+        1:   74: 	int adventurerPos = -1;
+        -:   75:
+        1:   76:  	int numSmithies = 0;
+        1:   77:  	int numAdventurers = 0;
+        -:   78:
+       14:   79:  for (j = 0; j < 6; j++) {
+branch  0 taken 86%
+branch  1 taken 14%
+        6:   80:    money = 0;
+        6:   81:    smithyPos = -1;
+        6:   82:    adventurerPos = -1;
+       72:   83:    for (i = 0; i < numHandCards(&G); i++) {
+branch  0 taken 83%
+branch  1 taken 17%
+       30:   84:      if (handCard(i, &G) == copper)
+branch  0 taken 67%
+branch  1 taken 33%
+       20:   85:    money++;
+       10:   86:      else if (handCard(i, &G) == silver)
+branch  0 taken 20%
+branch  1 taken 80%
+        2:   87:    money += 2;
+        8:   88:      else if (handCard(i, &G) == gold)
+branch  0 taken 0%
+branch  1 taken 100%
+    #####:   89:    money += 3;
+        8:   90:      else if (handCard(i, &G) == smithy)
+branch  0 taken 0%
+branch  1 taken 100%
+    #####:   91:    smithyPos = i;
+        8:   92:      else if (handCard(i, &G) == adventurer)
+branch  0 taken 0%
+branch  1 taken 100%
+    #####:   93:    adventurerPos = i;
+       30:   94:    }
+        -:   95:
+        6:   96:    if (whoseTurn(&G) == 0) {
+branch  0 taken 50%
+branch  1 taken 50%
+        3:   97:      if (smithyPos != -1) {
+branch  0 taken 0%
+branch  1 taken 100%
+    #####:   98:        playCard(smithyPos, -1, -1, -1, &G);
+    #####:   99:        money = 0;
+    #####:  100:        i=0;
+    #####:  101:        while(i<numHandCards(&G)){
+branch  0 never executed
+branch  1 never executed
+    #####:  102:          if (handCard(i, &G) == copper){
+branch  0 never executed
+branch  1 never executed
+    #####:  103:            playCard(i, -1, -1, -1, &G);
+    #####:  104:            money++;
+    #####:  105:          }
+    #####:  106:          else if (handCard(i, &G) == silver){
+branch  0 never executed
+branch  1 never executed
+    #####:  107:            playCard(i, -1, -1, -1, &G);
+    #####:  108:            money += 2;
+    #####:  109:          }
+    #####:  110:          else if (handCard(i, &G) == gold){
+branch  0 never executed
+branch  1 never executed
+    #####:  111:            playCard(i, -1, -1, -1, &G);
+    #####:  112:            money += 3;
+    #####:  113:          }
+    #####:  114:          i++;
+        -:  115:        }
+    #####:  116:      }
+        -:  117:
+        3:  118:      if (money >= 8) {
+branch  0 taken 0%
+branch  1 taken 100%
+    #####:  119:        buyCard(province, &G);
+    #####:  120:      }
+        3:  121:      else if (money >= 6) {
+branch  0 taken 0%
+branch  1 taken 100%
+    #####:  122:        buyCard(gold, &G);
+    #####:  123:      }
+        5:  124:      else if ((money >= 4) && (numSmithies < 2)) {
+branch  0 taken 67%
+branch  1 taken 33%
+branch  2 taken 100%
+branch  3 taken 0%
+        2:  125:        buyCard(smithy, &G);
+        2:  126:        numSmithies++;
+        2:  127:      }
+        1:  128:      else if (money >= 3) {
+branch  0 taken 100%
+branch  1 taken 0%
+        1:  129:        buyCard(silver, &G);
+        1:  130:      }
+        3:  131:      endTurn(&G);
+        3:  132:    }
+        -:  133:    else {
+        3:  134:      if (adventurerPos != -1) {
+branch  0 taken 0%
+branch  1 taken 100%
+    #####:  135:        playCard(adventurerPos, -1, -1, -1, &G);
+    #####:  136:        money = 0;
+    #####:  137:        i=0;
+    #####:  138:        while(i<numHandCards(&G)){
+branch  0 never executed
+branch  1 never executed
+    #####:  139:          if (handCard(i, &G) == copper){
+branch  0 never executed
+branch  1 never executed
+    #####:  140:            playCard(i, -1, -1, -1, &G);
+    #####:  141:            money++;
+    #####:  142:          }
+    #####:  143:          else if (handCard(i, &G) == silver){
+branch  0 never executed
+branch  1 never executed
+    #####:  144:            playCard(i, -1, -1, -1, &G);
+    #####:  145:            money += 2;
+    #####:  146:          }
+    #####:  147:          else if (handCard(i, &G) == gold){
+branch  0 never executed
+branch  1 never executed
+    #####:  148:            playCard(i, -1, -1, -1, &G);
+    #####:  149:            money += 3;
+    #####:  150:          }
+    #####:  151:          i++;
+        -:  152:        }
+    #####:  153:      }
+        3:  154:      if (money >= 8) {
+branch  0 taken 0%
+branch  1 taken 100%
+    #####:  155:        buyCard(province, &G);
+    #####:  156:      }
+        3:  157:      else if ((money >= 6) && (numAdventurers < 2)) {
+branch  0 taken 0%
+branch  1 taken 100%
+branch  2 never executed
+branch  3 never executed
+    #####:  158:        buyCard(adventurer, &G);
+    #####:  159:        numAdventurers++;
+        3:  160:      }else if (money >= 6){
+branch  0 taken 0%
+branch  1 taken 100%
+    #####:  161:	    buyCard(gold, &G);
+    #####:  162:        }
+        3:  163:      else if (money >= 3){
+branch  0 taken 100%
+branch  1 taken 0%
+        3:  164:	    buyCard(silver, &G);
+        3:  165:      }
+        -:  166:
+        3:  167:      endTurn(&G);
+        -:  168:    }
+        6:  169:  } 
+        1:  170:	memcpy(&testG, &G, sizeof(struct gameState));
+        1:  171:	j = fullDeckCount(thisPlayer, 0, &testG);
+        1:  172:	myCards =0;
+        6:  173:	for (m=0; m<G.deckCount[thisPlayer]; m++)
+branch  0 taken 67%
+branch  1 taken 33%
+        -:  174:	{
+        2:  175:		myCards++;
+        2:  176:	}
+        -:  177:
+       12:  178:	for (m=0; m<G.handCount[thisPlayer]; m++)
+branch  0 taken 83%
+branch  1 taken 17%
+        -:  179:	{
+        5:  180:		myCards++;
+        5:  181:	}
+        -:  182:
+       14:  183:	for (m=0; m<G.discardCount[thisPlayer]; m++)
+branch  0 taken 86%
+branch  1 taken 14%
+        -:  184:	{
+        6:  185:		myCards++;
+        6:  186:	}
+        -:  187:
+        1:  188:	if (j == myCards)
+branch  0 taken 0%
+branch  1 taken 100%
+        -:  189:	{
+    #####:  190:		printf("Card values before and after are the same PASS\n");
+    #####:  191:	}
+        -:  192:	else 
+        -:  193:	{
+        1:  194:		printf("Card values before and after are not the same FAIL\n\n");
+        -:  195:	}
+        -:  196:
+        -:  197:
+        1:  198:	return 0;
+        -:  199:}
+        -:  200:
+        -:  201:

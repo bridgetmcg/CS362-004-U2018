@@ -1,0 +1,151 @@
+        -:    0:Source:cardtest2.c
+        -:    0:Graph:cardtest2.gcno
+        -:    0:Data:cardtest2.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:// Code framework comes form cardtest4.c and playdom.c in order to set the game up as both 
+        -:    2:// a basic initialized game, and a game which has had several turns. 
+        -:    3:// This tests the "adventurer" effect
+        -:    4:// Name: Bridget McGinn
+        -:    5:// CS362
+        -:    6:
+        -:    7:#include "dominion.h"
+        -:    8:#include "dominion_helpers.h"
+        -:    9:#include <string.h>
+        -:   10:#include <stdio.h>
+        -:   11:#include <assert.h>
+        -:   12:#include "rngs.h"
+        -:   13:#include <stdlib.h>
+        -:   14:
+        -:   15:#define TESTCARD "adventurer"
+        -:   16:
+function main called 1 returned 100% blocks executed 70%
+        -:   17:int main() {
+        -:   18: 
+        -:   19:    int m;
+        1:   20:    int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
+        1:   21:    int discard = 0;
+        1:   22:    int seed = 1000;
+        1:   23:    int numPlayers = 2;
+        1:   24:    int thisPlayer = 0;
+        -:   25:	struct gameState G, testG;
+        1:   26:	int k[10] = {adventurer, embargo, village, minion, mine, cutpurse,
+        -:   27:			sea_hag, tribute, smithy, council_room};
+        -:   28:
+        1:   29:	initializeGame(numPlayers, k, seed, &G);
+        -:   30:
+        1:   31:	printf("----------------- Testing Card: %s ----------------\n", TESTCARD);
+        -:   32:
+        1:   33:	printf("\nTEST 1: Check that the player's hand has two additional cards. \n");
+        -:   34:
+        1:   35:	memcpy(&testG, &G, sizeof(struct gameState));
+        1:   36:	cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+        1:   37:	if (G.handCount[thisPlayer] == testG.handCount[thisPlayer] + 2 - discard)
+branch  0 taken 0%
+branch  1 taken 100%
+        -:   38:	{
+    #####:   39:		printf("TEST PASSED HAND COUNT INCREASED CORRECTLY\n");
+    #####:   40:	}
+        -:   41:	else
+        -:   42:	{
+        1:   43:		printf("TEST FAILED HAND COUNT not properly increased\n");
+        -:   44:	}
+        -:   45:
+        -:   46:
+        1:   47:	printf("\nTEST 2: Check that the two cards came from the player's deck and the other cards were discarded. \n");
+        -:   48:
+        1:   49:	printf("Cards in deck before: ");
+       12:   50:	for (m=0; m<G.deckCount[thisPlayer]; m++)
+branch  0 taken 83%
+branch  1 taken 17%
+        -:   51:	{
+        5:   52:		printf("%d", G.deck[thisPlayer][m]);
+        5:   53:		printf(" ");
+        5:   54:	}
+        1:   55:	printf("\n");
+        1:   56:	printf("Cards in hand before: ");
+       12:   57:	for (m=0; m<G.handCount[thisPlayer]; m++)
+branch  0 taken 83%
+branch  1 taken 17%
+        -:   58:	{
+        5:   59:		printf("%d", G.hand[thisPlayer][m]);
+        5:   60:		printf(" ");
+        5:   61:	}
+        1:   62:	printf("\n");
+        -:   63:
+        1:   64:	printf("Cards in discard before: ");
+        2:   65:	for (m=0; m<G.discardCount[thisPlayer]; m++)
+branch  0 taken 0%
+branch  1 taken 100%
+        -:   66:	{
+    #####:   67:		printf("%d", G.discard[thisPlayer][m]);
+    #####:   68:		printf(" ");
+    #####:   69:	}
+        1:   70:	printf("\n\n");
+        1:   71:	memcpy(&testG, &G, sizeof(struct gameState));
+        1:   72:	cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+        1:   73:	printf("Cards in deck after:");
+      324:   74:	for (m=0; m<testG.deckCount[thisPlayer]; m++)
+branch  0 taken 99%
+branch  1 taken 1%
+        -:   75:	{
+      161:   76:		printf("%d", testG.deck[thisPlayer][m]);
+      161:   77:		printf(" ");
+      161:   78:	}
+        1:   79:	printf("\n");
+        1:   80:	printf("Cards in hand after:");
+        2:   81:	for (m=0; m<testG.handCount[thisPlayer]; m++)
+branch  0 taken 0%
+branch  1 taken 100%
+        -:   82:	{
+    #####:   83:		printf("%d", testG.hand[thisPlayer][m]);
+    #####:   84:		printf(" ");
+    #####:   85:	}
+        1:   86:	printf("\n");
+        1:   87:	printf("Cards in discard after:");
+        2:   88:	for (m=0; m<testG.discardCount[thisPlayer]; m++)
+branch  0 taken 0%
+branch  1 taken 100%
+        -:   89:	{
+    #####:   90:		printf("%d", testG.discard[thisPlayer][m]);
+    #####:   91:		printf(" ");
+    #####:   92:	}
+        1:   93:	printf("\n\n");
+        -:   94:
+        1:   95:	printf("Visually check that the cards are the same before and after\n\n");
+        -:   96:
+        1:   97:	if (testG.handCount[thisPlayer]+ testG.deckCount[thisPlayer]+ testG.discardCount[thisPlayer] == 10)
+branch  0 taken 0%
+branch  1 taken 100%
+        -:   98:	{
+    #####:   99:		printf("TEST PASSED HAND COUNT INCREASED CORRECTLY\n");
+    #####:  100:	}
+        -:  101:	else
+        -:  102:	{
+        1:  103:		printf("TEST FAILED HAND COUNT not properly increased.\n");
+        -:  104:	}
+        -:  105:
+        1:  106:	printf("\nTEST 3: Check that the nothing was changed in another player's hand. \n");
+        -:  107:
+        1:  108:	memcpy(&testG, &G, sizeof(struct gameState));
+        1:  109:	cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+        -:  110:
+        1:  111:	if (testG.handCount[1] == G.handCount[1] && testG.discardCount[1] == G.discardCount[1] && testG.deckCount[1] == G.deckCount[1])
+branch  0 taken 0%
+branch  1 taken 100%
+branch  2 never executed
+branch  3 never executed
+branch  4 never executed
+branch  5 never executed
+        -:  112:	{
+    #####:  113:		printf("TEST PASSED no change in other player's hand\n");
+    #####:  114:	}
+        -:  115:	else
+        -:  116:	{
+        1:  117:		printf("TEST FAILED change in other player's hand\n\n");
+        -:  118:
+        -:  119:	}
+        -:  120:
+        1:  121:	return 0;
+        -:  122:}
+        -:  123:
