@@ -1,6 +1,7 @@
 //Bridget McGinn
 //Note: I used the code framework from TestDrawCard.c to outline my random testing
 
+
 #include "dominion.h"
 #include "dominion_helpers.h"
 #include <string.h>

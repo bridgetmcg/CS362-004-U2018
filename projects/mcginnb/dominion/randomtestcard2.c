@@ -59,11 +59,11 @@ int main () {
 
   int i, n, p;
   struct gameState G;
-  printf ("RANDOM TESTS running 1000 times.\n");
+  printf ("RANDOM TESTS running 10000 times.\n");
   SelectStream(2);
   PutSeed(3);
 
-  for (n = 0; n < 1000; n++) {                                    //Set up 1000 forms of the gamestate
+  for (n = 0; n < 10000; n++) {                                    //Set up 1000 forms of the gamestate
     for (i = 0; i < sizeof(struct gameState); i++) {
       ((char*)&G)[i] = floor(Random() * 256);
     }
