@@ -1,0 +1,7 @@
+----------------- Testing Card: great hall ----------------
+RANDOM TESTS running 1000 times.
+ALL RANDOM TESTS PASSED
+File 'randomtestcard2.c'
+Lines executed:67.35% of 49
+randomtestcard2.c:creating 'randomtestcard2.c.gcov'
+

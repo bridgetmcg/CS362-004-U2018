@@ -1,0 +1,10 @@
+----------------- Testing Card: smithy ----------------
+RANDOM TESTS running 1000 times.
+TEST FAILURES
+smithyFails = 1000 
+drawCardFail = 0 
+discardFail = 0 
+File 'randomtestcard1.c'
+Lines executed:81.82% of 44
+randomtestcard1.c:creating 'randomtestcard1.c.gcov'
+
