@@ -1,0 +1,169 @@
+----------------- Testing fullDeckCount(): ----------------
+
+Check fullDeckCount() at beginning of game
+Card values before and after are not the same FAIL
+
+Check fullDeckCount() if a 4 (copper) is passed in
+fullDeckCount can count individual cards PASS
+
+Check fullDeckCount() after game runs several times
+Card values before and after are not the same FAIL
+
+----------------- Testing Function getCost() --------------- 
+
+Check cards 0-26
+0. TEST PASSED
+1.TEST PASSED
+2.TEST PASSED
+3.TEST PASSED
+4.TEST PASSED
+5.TEST PASSED
+6.TEST PASSED
+7.TEST PASSED
+8.TEST PASSED
+9.TEST PASSED
+10.TEST PASSED
+11.TEST PASSED
+12.TEST PASSED
+13.TEST PASSED
+14.TEST PASSED
+15.TEST PASSED
+16.TEST PASSED
+17.TEST PASSED
+18.TEST PASSED
+19.TEST PASSED
+20.TEST PASSED
+21.TEST PASSED
+22.TEST PASSED
+23.TEST PASSED
+24.TEST PASSED
+25.TEST PASSED
+26.TEST PASSED
+
+Check out of bounds cards
+TEST PASSED
+
+----------------- Testing isGameOver(): ----------------
+
+TEST 1: check that isGameOver will work if there are no Provinces.
+Provinces: 0
+Number of supplies with 0: 1
+TEST 1 = PASS
+
+TEST 2: check that isGameOver will work if there are three cards with 0 left.
+Provinces: 8
+Number of supplies with 0: 3
+TEST 2 = PASS
+
+TEST 3: check that isGameOver will return 0 if neither of the criteria are met.
+TEST 3 = PASS
+
+----------------- Testing shuffle(): ----------------
+
+TEST 1: check that the cards from the player's deck are in a different order.
+Cards in deck before: 1 1 4 13 4 4 4 
+Cards in hand before: 
+Cards in discard before: 13 4 4 1 4 5 
+Cards in deck after: 4 13 4 4 1 1 4 
+Cards in hand after: 
+Cards in discard after: 13 4 4 1 4 5 
+Deck count is the same before and after but the order is changed PASS
+
+TEST 2: Check that the number of cards in the deck after is the same that were in the deck before.
+Number of cards in deck before: 7
+Number of cards in deck after: 7
+Cards equal PASS.
+
+TEST 3: check that the number and order of another player's card have not been changed.
+Cards of other player equal PASS.
+
+TEST 4: check that if there are no cards in the deck, that shuffle returns -1.
+Shuffle returns -1 if there are no cards in the deck PASS.
+
+----------------- Testing Card: smithy ----------------
+TEST 1: test if the hand count increases by 3 and if the deck count decreases by 3
+hand count = 8, expected = 7
+deck count = 0, expected = 2
+TEST FAILED
+
+TEST 2: Check that the nothing was changed in another player's hand. 
+TEST PASSED no change in other player's hand
+
+
+TEST 3: Check that the two cards came from the player's deck and the other cards were discarded. 
+Cards in deck before: 1 1 4 4 4 
+Cards in hand before: 4 4 1 4 4 
+Cards in discard before: 
+
+Cards in deck after:
+Cards in hand after:1 4 1 4 4 4 4 4 1 
+Cards in discard after:
+
+Visually check that the cards are the same before and after
+
+TEST 4: Check that no changes were made to the player's coins or buys. 
+TEST PASSED
+
+----------------- Testing Card: adventurer ----------------
+
+TEST 1: Check that the player's hand has two additional cards. 
+TEST FAILED HAND COUNT not properly increased
+
+TEST 2: Check that the two cards came from the player's deck and the other cards were discarded. 
+Cards in deck before: 1 1 4 4 4 
+Cards in hand before: 4 4 1 4 4 
+Cards in discard before: 
+
+Cards in deck after:
+Cards in hand after:1 4 1 4 4 4 4 4 1 
+Cards in discard after:
+
+Visually check that the cards are the same before and after
+
+TEST FAILED HAND COUNT not properly increased.
+
+TEST 3: Check that the nothing was changed in another player's hand. 
+TEST FAILED change in other player's hand
+
+----------------- Testing Card: greathall ----------------
+TEST 1: test if the player gains a card in their hand
+hand count = 5, expected = 5
+deck count = 4, expected = 4
+TEST PASSED
+
+TEST 2: test if the player gains 1 action
+TEST PASSED
+
+TEST 3: Check that the nothing was changed in another player's hand. 
+TEST PASSED no change in other player's hand
+
+TEST 4: Check that there were no changes in the player's coins or buys. 
+TEST PASSED
+
+----------------- Testing Card: village ----------------
+TEST 1: Check that the player has an additional 2 actions 
+number with village: -1;  number expected: 3
+TEST FAILED - actions not increased by 2
+
+TEST 2: Check that the player's hand has an additional card
+TEST FAILED - hand count not increased by 1
+
+TEST 3: Check that the player's deck has one fewer cards
+TEST FAILED - deck count not decreased by 1
+
+TEST 4: Check that the player's card came from their hand
+Cards in deck before: 1 1 4 4 4 
+Cards in hand before: 4 4 1 4 4 
+Cards in discard before: 
+Cards in deck after: 1 1 4 4 
+Cards in hand after: 4 4 1 4 4 
+Cards in discard after: 1 
+Visually check that the cards are the same before and after
+
+TEST 5: Check that the nothing was changed in another player's hand. 
+TEST PASSED no change in other player's hand
+
+File 'dominion.c'
+Lines executed:46.98% of 645
+dominion.c:creating 'dominion.c.gcov'
+

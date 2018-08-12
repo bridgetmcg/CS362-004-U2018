@@ -1,0 +1,18 @@
+----------------- Testing Card: smithy ----------------
+RANDOM TESTS running 1000 times.
+TEST FAILURES
+smithyFails = 1000 
+drawCardFail = 0 
+discardFail = 0 
+File 'dominion.c'
+Lines executed:46.98% of 645
+dominion.c:creating 'dominion.c.gcov'
+
+File 'randomtestcard1.c'
+Lines executed:81.82% of 44
+randomtestcard1.c:creating 'randomtestcard1.c.gcov'
+
+File 'randomtestcard1.c'
+Lines executed:81.82% of 44
+randomtestcard1.c:creating 'randomtestcard1.c.gcov'
+
