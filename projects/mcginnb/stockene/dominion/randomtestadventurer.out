@@ -1,7 +1,0 @@
------------------ Testing Card: adventurer ----------------
-RANDOM TESTS running 1000 times.
-ALL RANDOM TESTS PASSED
-
-File 'randomtestadventurer.c'
-Lines executed:70.90% of 58
-randomtestadventurer.c:creating 'randomtestadventurer.c.gcov'

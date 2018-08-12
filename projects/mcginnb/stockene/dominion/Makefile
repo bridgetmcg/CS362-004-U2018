@@ -9,30 +9,6 @@ dominion.o: dominion.h dominion.c rngs.o
 playdom: dominion.o playdom.c
 	gcc -o playdom playdom.c -g dominion.o rngs.o $(CFLAGS)
 
-randomtestcard1.out: randomtestcard1.c dominion.c rngs.o
-	echo "Results from Random Testing: > randomtestcard1.out
-
-	echo "randomtestcard1.out:" >> randomtestcard1.out
-	gcc -o randomtestcard1 -g randomtestcard1.c dominion.o rngs.o $(CFLAGS)
-	./randomtestcard1 &>randomtestcard1.out
-	gcov randomtestcard1.c >> randomtestcard1.out
-
-randomtestcard2.out: randomtestcard2.c dominion.c rngs.o
-	echo "Results from Random Testing: > randomtestcard2.out
-
-	echo "randomtestcard2.out:" >> randomtestcard2.out
-	gcc -o randomtestcard2 -g randomtestcard2.c dominion.o rngs.o $(CFLAGS)
-	./randomtestcard2 &>randomtestcard2.out
-	gcov randomtestcard2.c >> randomtestcard2.out
-
-randomtestadventurer.out: randomtestadventurer.c dominion.c rngs.o
-	echo "Results from Random Testing: > randomtestadventurer.out
-
-	echo "randomtestadventurer.out:" >> randomtestadenturer.out
-	gcc -o randomtestadventurer -g randomtestadventurer.c dominion.o rngs.o $(CFLAGS)
-	./randomtestadventurer &>randomtestadventurer.out
-	gcov randomtestadventurer.c >> randomtestadventurer.out
-
 unittestresults.out: unittest1.c unittest2.c unittest3.c unittest4.c cardtest1.c cardtest2.c cardtest3.c cardtest4.c dominion.o rngs.o 
 	echo "Results for unit testing:" > unittestresults.out
 	
